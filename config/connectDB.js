@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
+const config = require("config");
+const dbConnect = config.get("mongoURI");
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(
-			"mongodb+srv://adminUser:<password>@mern-shop.jjbnx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-			{
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-			}
-		);
+		await mongoose.connect(`${dbConnect}`, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
 		console.log("DB Connected");
 	} catch (error) {
 		console.error(error);
