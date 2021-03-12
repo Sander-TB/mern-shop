@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
-	firstName: {
+const ProductSchema = new mongoose.Schema({
+	title: {
 		type: String,
 		required: true,
 	},
-	email: {
+	description: {
 		type: String,
 		required: true,
 	},
-	password: {
+	price: {
+		type: Number,
+		required: true,
+	},
+	imageUrl: {
 		type: String,
 		required: true,
 	},
@@ -19,4 +23,4 @@ const UserSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("product", ProductSchema);
