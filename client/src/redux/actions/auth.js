@@ -1,17 +1,37 @@
 import axios from "axios";
 import { REGISTER_SUCCESS, REGISTER_FAIL } from "./actionTypes";
 
-// Example of what the actual function is doing
-/*
- export function someFunction() {
-	return function anotherFunction() {
-		// do the stuff, api calls
-		// dispatch the action
+export const registerUser = ({ firstName, email, password }) => async (
+	dispatch
+) => {
+	const userData = JSON.stringify({
+		firstName,
+		email,
+		password,
+	});
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
 	};
-}
-*/
-export const registerUser = ({ dataFromForm }) => async (dispatch) => {
-	// We do the API call, triggered by the login form
+	try {
+		const res = await axios.post("/api/auth", userData, config);
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: {
+				jwtToken: res.data.token,
+			},
+		});
+		localStorage.setItem("token", res.data.token);
+		console.log(res);
+	} catch (error) {
+		dispatch({
+			type: REGISTER_FAIL,
+		});
+		localStorage.removeItem("token");
+		console.log(error);
+	}
+
 	// if success
 	// dispatch the action
 };

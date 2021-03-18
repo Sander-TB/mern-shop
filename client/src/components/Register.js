@@ -1,20 +1,34 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/auth";
 
 export default function Register() {
+	const [formData, setFormData] = useState({});
+	const dispatch = useDispatch();
 	// get the form data
 	// dispatch the action with the form data inside of it
+
+	const updateFields = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value }); // {fieldName: "value"}
+	};
+
+	const submitForm = (e) => {
+		e.preventDefault();
+		dispatch(registerUser(formData));
+	};
+
 	return (
 		<>
 			<form
 				onSubmit={(e) => {
-					onsubmit(e);
+					submitForm(e);
 				}}>
 				Name: <br />
 				<input
 					type='text'
 					name='firstName'
 					onChange={(e) => {
-						onchange(e);
+						updateFields(e);
 					}}
 				/>
 				<br />
@@ -23,7 +37,7 @@ export default function Register() {
 					type='text'
 					name='email'
 					onChange={(e) => {
-						onchange(e);
+						updateFields(e);
 					}}
 				/>
 				<br />
@@ -32,7 +46,7 @@ export default function Register() {
 					type='password'
 					name='password'
 					onChange={(e) => {
-						onchange(e);
+						updateFields(e);
 					}}
 				/>
 				<br />
