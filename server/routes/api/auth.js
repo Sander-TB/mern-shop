@@ -7,11 +7,10 @@ const config = require("config");
 const User = require("../../models/User");
 
 /*
- * @route POST api/auth
- * @desc Register user by a token
+ * @route  POST api/auth
+ * @desc   Register user by a token
  * @access Private
  */
-
 router.post(
 	"/",
 	body("firstName").isLength({ min: 3 }),
@@ -20,7 +19,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: error.array() });
+			return res.status(400).json({ errors: errors.array() });
 		}
 
 		const { firstName, email, password } = req.body;
